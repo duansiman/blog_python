@@ -25,11 +25,13 @@ class DBManager:
     	except mysql.connector.Error as err:
     		if (err.errno == errorcode.ER_ACCESS_DENIED_ERROR):
     			print("The credentials you provided are not correct.")
+                return None
     		elif (err.errno == errorcode.ER_BAD_DB_ERROR):
     			print("The database you provided does not exist.")
+                return None
     		else:
     			print("Something went wrong: " , err)
-		return None
+                return None
 
     def execute(self, sql, data):
         connection = self.connect()
