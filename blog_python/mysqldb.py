@@ -29,7 +29,7 @@ class DBManager:
     			print("The database you provided does not exist.")
     		else:
     			print("Something went wrong: " , err)
-		    return None
+		return None
 
     def execute(self, sql, data):
         connection = self.connect()
