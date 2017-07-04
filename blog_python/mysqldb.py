@@ -23,13 +23,13 @@ class DBManager:
     		cnx = mysql.connector.connect(**config)
     		return cnx
     	except mysql.connector.Error as err:
-		if (err.errno == errorcode.ER_ACCESS_DENIED_ERROR):
-			print "The credentials you provided are not correct."
-		elif (err.errno == errorcode.ER_BAD_DB_ERROR):
-			print "The database you provided does not exist."
-		else:
-			print "Something went wrong: " , err
-		return None
+    		if (err.errno == errorcode.ER_ACCESS_DENIED_ERROR):
+    			print "The credentials you provided are not correct."
+    		elif (err.errno == errorcode.ER_BAD_DB_ERROR):
+    			print "The database you provided does not exist."
+    		else:
+    			print "Something went wrong: " , err
+		    return None
 
     def execute(self, sql, data):
         connection = self.connect()
