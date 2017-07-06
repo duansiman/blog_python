@@ -1,0 +1,20 @@
+<h1 style="text-align:center">MySQL删除表数据</h1>&#13;
+<p>      在MySQL中有两种方法可以删除数据，一种是DELETE语句，另一种是TRUNCATE TABLE语句。DELETE语句可以通过WHERE对要删除的记录进行选择。而使用TRUNCATE TABLE将删除表中的所有记录。因此，DELETE语句更灵活。</p>&#13;
+<p>      如果要清空表中的所有记录，可以使用下面的两种方法：</p>&#13;
+<p><span style="color:rgb(0,0,255)">　      DELETE FROM table1</span></p>&#13;
+<p><span style="color:rgb(0,0,255)">　      TRUNCATE TABLE table1</span></p>&#13;
+<p>      其中第二条记录中的TABLE是可选的。</p>&#13;
+<p>      如果要删除表中的部分记录，只能使用DELETE语句。</p>&#13;
+<p>　      DELETE FROM table1 WHERE ...;</p>&#13;
+<p>      如果DELETE不加WHERE子句，那么它和TRUNCATE TABLE是一样的，但它们有一点不同，那就是DELETE可以返回被删除的记录数，而TRUNCATE TABLE返回的是0。</p>&#13;
+<p>      如果一个表中有自增字段，使用TRUNCATE TABLE和没有WHERE子句的DELETE删除所有记录后，这个自增字段将起始值恢复成1.如果你不想这样做的话，可以在DELETE语句中加上永真的WHERE，如WHERE 1或WHERE true。</p>&#13;
+<p>      DELETE FROM table1 WHERE 1;</p>&#13;
+<p>       上面的语句在执行时将扫描每一条记录。但它并不比较，因为这个WHERE条件永远为true。这样做虽然可以保持自增的最大值，但由于它是扫描了所有的记录，因此，它的执行成本要比没有WHERE子句的DELETE大得多。  </p>&#13;
+<p>      DELETE和TRUNCATE TABLE的最大区别是DELETE可以通过WHERE语句选择要删除的记录，但执行速度不快。</p>&#13;
+<p>      truncate删除后不记录mysql日志，不可以恢复数据。delete的效果有点像将mysql表中所有记录一条一条删除到删完，而truncate相当于保留mysql表的结构，重新创建了这个表，所有的状态都相当于新表。而且还可以返回被删除的记录数。而TRUNCATE TABLE无法删除指定的记录，而且不能返回被删除的记录。但它执行得非常快。</p>&#13;
+<p>      和标准的SQL语句不同，DELETE支持ORDER BY和LIMIT子句，通过这两个子句，我们可以更好地控制要删除的记录。如当我们只想删除WHERE子句过滤出来的记录的一部分，可以使用LIMIT，如果要删除后几条记录，可以通过ORDER BY和LIMIT配合使用。假设我们要删除users表中name等于"Mike"的前6条记录。可以使用如下的DELETE语句：</p>&#13;
+<p>      DELETE FROM users WHERE name = 'Mike' LIMIT 6;</p>&#13;
+<p>      一般MySQL并不确定删除的这6条记录是哪6条，为了更保险，我们可以使用ORDER BY对记录进行排序。</p>&#13;
+<p>      DELETE FROM users WHERE name = 'Mike' ORDER BY id DESC LIMIT 6;</p>&#13;
+<h2>美文美图</h2>&#13;
+<p style="text-align:center"> <img src="http://img.blog.csdn.net/20160112195454635?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="" /></p>
